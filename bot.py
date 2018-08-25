@@ -178,6 +178,19 @@ async def on_message(message):
         elif message.content.startswith('&splatoon callie'):
             splatoon(str(message.content[17:]))
             await client.send_file(message.channel, 'splatoonout.png')
+
+    if message.content.startswith('&mat'):
+        Wmat=140
+        def mat(matname):
+            image = Image.open('matblank.png')
+            font_type = ImageFont.truetype("segoeprb.ttf", 30)
+            draw = ImageDraw.Draw(image)
+            widthmat = font_type.getsize(matname)[0]
+            print(widthmat)
+            draw.text((675+(Wmat-widthmat)/2, 290), text=matname, font=font_type, fill=(0,0,0))
+            image.save("matout.png") 
+        mat(str(message.content[4:]))
+        await client.send_file(message.channel, 'matout.png')
         
 @client.event
 async def on_ready():
