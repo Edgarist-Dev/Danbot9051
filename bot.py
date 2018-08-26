@@ -4,13 +4,16 @@ from alone import *
 from PIL import Image, ImageDraw, ImageFont
 import random
 import textwrap
+import os
+import calendar
+import datetime
+import sched, time
 tokenfile = open("C:\\token.txt", "r")
 TOKEN = tokenfile.read()
 
 client = discord.Client()
 print(tokenfile.read())
 prefix = '&'
-
 file = open('msgs.txt','r')
 data = file.readlines()
 commands = []
@@ -19,8 +22,8 @@ for i in data:
     print(str(temp[1]))
     commands.append(temp)
 file.close()
-
 print(commands)
+
 
 @client.event
 async def on_message(message):
@@ -71,8 +74,8 @@ async def on_message(message):
         msg = "0361-9574-6041 dan\n3153-9628-9995 may\n0920-5030-1151 joe\n1306-4931-3543 gin\n3866-9206-5223 ang\n4124-5082-9752 aki \n1564-3621-7080 tom ashoo8 \n1521-7977-4558 tom bleach".format(message)
         await client.send_message(message.channel, msg)
 
-    if message.content.startswith(prefix+'hello'):
-        msg = 'Hello {0.author.mention}'.format(message)
+    if message.content.startswith('hey dan'):
+        msg = '{0.author.mention} yeah?'.format(message)
         await client.send_message(message.channel, msg)
 
     if message.content.startswith(prefix+'alone'):
@@ -200,3 +203,4 @@ async def on_ready():
     print('------')
 
 client.run(TOKEN)
+
