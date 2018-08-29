@@ -82,7 +82,7 @@ async def on_message(message):
         alone()
         await client.send_file(message.channel, 'aloneout.png')
     if message.content.startswith(prefix+'nagatoro'):
-        face = random.randint(1,436)
+        face = random.randint(1,453)
         faceimage = 'nagatoro/('+str(face)+').png'
         await client.send_file(message.channel, str(faceimage))
         
