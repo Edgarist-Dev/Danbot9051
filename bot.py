@@ -133,6 +133,10 @@ async def on_message(message):
                 image = Image.open('otaconcodec.png')
             elif message.content.startswith('&codec meiling'):
                 image = Image.open('meilingcodec.png')
+            elif message.content.startswith('&codec wolf'):
+                image = Image.open('wolfcodec.png')
+            elif message.content.startswith('&codec liquid'):
+                image = Image.open('liquidcodec.png')
             font_type = ImageFont.truetype("arial.ttf", 25)
             (width,height) = font_type.getsize(codectext)
             draw = ImageDraw.Draw(image)
@@ -160,6 +164,12 @@ async def on_message(message):
             await client.send_file(message.channel, 'codecout.png')
         elif message.content.startswith('&codec meiling'):
             codec(str(message.content[15:]))
+            await client.send_file(message.channel, 'codecout.png')
+        elif message.content.startswith('&codec liquid'):
+            codec(str(message.content[14:]))
+            await client.send_file(message.channel, 'codecout.png')
+        elif message.content.startswith('&codec wolf'):
+            codec(str(message.content[12:]))
             await client.send_file(message.channel, 'codecout.png')
     if message.content.startswith('&splatoon'):
         W=800
