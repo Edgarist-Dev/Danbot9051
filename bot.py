@@ -1,6 +1,7 @@
 # Work with Python 3.6
 import discord
 from alone import *
+from sploon import *
 from PIL import Image, ImageDraw, ImageFont
 import random
 import textwrap
@@ -8,6 +9,7 @@ import os
 import calendar
 import datetime
 import sched, time
+
 tokenfile = open("C:\\token.txt", "r")
 TOKEN = tokenfile.read()
 
@@ -204,7 +206,12 @@ async def on_message(message):
             image.save("matout.png") 
         mat(str(message.content[4:]))
         await client.send_file(message.channel, 'matout.png')
-        
+    if message.content.startswith('&stages'):
+        splatoonget()
+        splatoonfile = open("stages.txt","r")
+        stages = splatoonfile.read()
+        splatoonfile.close
+        await client.send_message(message.channel, stages)
 @client.event
 async def on_ready():
     print('Logged in as')
