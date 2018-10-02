@@ -84,7 +84,7 @@ async def on_message(message):
         alone()
         await client.send_file(message.channel, 'aloneout.png')
     if message.content.startswith(prefix+'nagatoro'):
-        face = random.randint(1,453)
+        face = random.randint(1,531)
         faceimage = 'nagatoro/('+str(face)+').png'
         await client.send_file(message.channel, str(faceimage))
         
@@ -212,6 +212,7 @@ async def on_message(message):
         stages = splatoonfile.read()
         splatoonfile.close
         await client.send_message(message.channel, stages)
+        await client.send_file(message.channel, 'triplestack.png')
 @client.event
 async def on_ready():
     print('Logged in as')
