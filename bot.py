@@ -21,15 +21,12 @@ data = file.readlines()
 commands = []
 for i in data:
     temp = i.strip().split(',')
-    print(str(temp[1]))
     commands.append(temp)
 file.close()
-print(commands)
 
 
 @client.event
 async def on_message(message):
-    # we do not want the bot to reply to itself
     if message.author == client.user:
         return
     m = str(message).lower()      
@@ -63,14 +60,9 @@ async def on_message(message):
     if message.content == (prefix + 'lewd'):
         await client.send_file(message.channel, 'hinokalewd.png')
         
-    #if message.content == ('succ'):
-        #msg = 'S U C C \nU \nC \nC'.format(message)
-        #await client.send_message(message.channel, msg)
-
     if message.content == ('harry wallace help'):
         msg = 'right so\n&fc - friend codes for 3DS\nritter - its ritter\'s face\nmarie - marie copypasta\nchelsea - chelsea copypasta\nlollie - cotton\nlewd - lewd\nalone - alone on a X Y?\njuice - &juice [text]\ndab - &dab [text]\ncodec - &codec [name] [text]\n\tcurrent portraits:\n\t\tcolonel\n\t\tnaomi\n\t\tmei ling\n\t\tmeryl\n\t\tmiller'.format(message)
         await client.send_message(message.channel, msg)
-
         
     if message.content.startswith(prefix + 'fc'): 
         msg = "0361-9574-6041 dan\n3153-9628-9995 may\n0920-5030-1151 joe\n1306-4931-3543 gin\n3866-9206-5223 ang\n4124-5082-9752 aki \n1564-3621-7080 tom ashoo8 \n1521-7977-4558 tom bleach".format(message)
@@ -89,8 +81,6 @@ async def on_message(message):
         await client.send_file(message.channel, str(faceimage))
         
     if message.content.startswith(prefix+'juice'):
-        #juice(str(message.content[5:]))
-
         W = 140
         Ws = 65
         def juice(juicebox):
@@ -185,7 +175,6 @@ async def on_message(message):
             draw = ImageDraw.Draw(image)
             width = font_type.getsize(splatoontext)[0]
             draw.text((150, 70), text=toprint, font=font_type, fill=(255,255,255))
-            #image.show()
             image.save("splatoonout.png")
         if message.content.startswith('&splatoon marie'):
             splatoon(str(message.content[16:]))
@@ -207,11 +196,16 @@ async def on_message(message):
         mat(str(message.content[4:]))
         await client.send_file(message.channel, 'matout.png')
     if message.content.startswith('&stages'):
+        now = datetime.datetime.now()
+        rotations = ['0','2','4','6','8','10'
+                     '12','14','16','18','20'
+                     '22','24']
+        progress = '⚫'*int(str(now.minute)[0])+'⚪'*(12-int(str(now.minute)[0]))
         splatoonget()
         splatoonfile = open("stages.txt","r")
         stages = splatoonfile.read()
         splatoonfile.close
-        await client.send_message(message.channel, stages)
+        await client.send_message(message.channel, stages+'\n'+progress)
         await client.send_file(message.channel, 'triplestack.png')
 @client.event
 async def on_ready():

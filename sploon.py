@@ -2,8 +2,9 @@ import urllib.request
 import re
 from PIL import Image
 import sys
-
+import datetime
 def splatoonget():
+    now = datetime.datetime.now()
     user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
 
     headers={'User-Agent':user_agent,} 
@@ -11,7 +12,7 @@ def splatoonget():
     request=urllib.request.Request('https://splatoon.ink/schedule2',None,headers)
     response = urllib.request.urlopen(request)
     data = response.read()
-    
+
     stages = ["The Reef","Musselforge Fitness","Starfish Mainstage",
     "Humpback Pump Track","Inkblot Art Academy","Moray Towers","Port Mackerel",
     "Sturgeon Shipyard","Shifty Station","Manta Maria","Kelp Dome",
@@ -30,25 +31,58 @@ def splatoonget():
 
     for i in current:
         if i[:7] == '"gachi"':
-            for x in range(6):
+            for x in range(9):
                 #print(current[current.index(i)+x])
                 currentmode.append(current[current.index(i)+x])
             break
+        elif i[:17] == '"modes":{"gachi":':
+            for x in range(9):
+                currentmode.append(current[current.index(i)+x])
+            break
     for i in current:
-        if i[:18] == '"modes":{"regular"':
+        if i[:9] == '"regular"':
             for x in range(6):
                 #print(current[current.index(i)+x])
                 currentmaps.append(current[current.index(i)+x])
             break
+        elif i[:18] == '"modes":{"regular"':
+            for x in range(6):
+                currentmaps.append(current[current.index(i)+x])
     for i in current:
         if i[:8] == '"league"':
-            for x in range(6):
+            for x in range(8):
                 #print(current[current.index(i)+x])
                 currentleague.append(current[current.index(i)+x])
             break
-    rankedmode = currentmode[6][8:len(currentmode[6])-1]
-    leaguemode = currentleague[6][8:len(currentleague[6])-1]
+    for i in current:
+        if i[:17] == '"modes":{"league"':
+            for x in range(8):
+                currentleague.append(current[current.index(i)+x])
 
+##    print(currentmode)
+##    print(currentleague)
+##    print(currentmaps)
+
+
+### this part finds what the current mode is for ranked and league
+    for i in currentmode:
+        if i[:7] == '"name":':
+            rankedmode = i[8:len(i)-2]
+            break
+        elif i[:8] == '"gachi":':
+            rankedmode = currentmode[currentmode.index(i)+4][16:len(currentmode[currentmode.index(i)+4])-1]
+            break
+
+    for i in currentleague:
+        if i[:7] == '"name":':
+            leaguemode = i[8:len(i)-2]
+            break
+        elif i[:9] == '"league":':
+            leaguemode = current[current.index(i)+5][8:len(current[current.index(i)+5])-1]
+        elif i[:15] == '"rule":{"name":':
+            leaguemode = i[16:len(i)-1]
+            
+### this part is the text the bot sends
     regular = "The Current Regular TURF WAR stages are " + currentmaps[3][9:len(currentmaps[3])-1] + " and " + currentmaps[4][1:len(currentmaps[4])-2]
     ranked = "The Current Ranked " + rankedmode.upper() + " stages are " + currentmode[3][9:len(currentmode[3])-1] + " and " + currentmode[4][1:len(currentmode[4])-2]
     league = "The Current League " + leaguemode.upper() + " stages are " + currentleague[3][9:len(currentleague[3])-1] + " and " + currentleague[4][1:len(currentleague[4])-2]
@@ -58,6 +92,8 @@ def splatoonget():
     f.write(regular+'\n'+ranked+'\n'+league)
     f.close
 
+
+####this part makes the image
     image1 = Image.open('stages/'+currentmaps[3][9:len(currentmaps[3])-1]+'.png')
     image2 = Image.open('stages/'+currentmaps[4][1:len(currentmaps[4])-2]+'.png')
     image3 = Image.open('stages/Regular.png')
