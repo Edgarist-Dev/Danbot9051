@@ -74,7 +74,6 @@ def splatoonget():
                 if i[:7] == '"name":':
                     rankedmode = i[8:len(i)-2]
                     break
-            print(rankedmode)
             break
 
     for i in currentleague:
