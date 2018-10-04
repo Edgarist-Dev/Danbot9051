@@ -70,7 +70,11 @@ def splatoonget():
             rankedmode = i[8:len(i)-2]
             break
         elif i[:8] == '"gachi":':
-            rankedmode = currentmode[currentmode.index(i)+4][16:len(currentmode[currentmode.index(i)+4])-1]
+            for i in currentmode:
+                if i[:7] == '"name":':
+                    rankedmode = i[8:len(i)-2]
+                    break
+            print(rankedmode)
             break
 
     for i in currentleague:
@@ -83,9 +87,9 @@ def splatoonget():
             leaguemode = i[16:len(i)-1]
             
 ### this part is the text the bot sends
-    regular = "The Current Regular TURF WAR stages are " + currentmaps[3][9:len(currentmaps[3])-1] + " and " + currentmaps[4][1:len(currentmaps[4])-2]
-    ranked = "The Current Ranked " + rankedmode.upper() + " stages are " + currentmode[3][9:len(currentmode[3])-1] + " and " + currentmode[4][1:len(currentmode[4])-2]
-    league = "The Current League " + leaguemode.upper() + " stages are " + currentleague[3][9:len(currentleague[3])-1] + " and " + currentleague[4][1:len(currentleague[4])-2]
+    regular = "The Current <:regular:497307744248791041> Regular TURF WAR stages are " + currentmaps[3][9:len(currentmaps[3])-1] + " and " + currentmaps[4][1:len(currentmaps[4])-2]
+    ranked = "The Current <:ranked:497307749911363594> Ranked " + rankedmode.upper() + " stages are " + currentmode[3][9:len(currentmode[3])-1] + " and " + currentmode[4][1:len(currentmode[4])-2]
+    league = "The Current <:league:497307738112524298> League " + leaguemode.upper() + " stages are " + currentleague[3][9:len(currentleague[3])-1] + " and " + currentleague[4][1:len(currentleague[4])-2]
     #print(regular,'\n',ranked,'\n',league)
     f = open("stages.txt", "w")
     f.truncate(0)

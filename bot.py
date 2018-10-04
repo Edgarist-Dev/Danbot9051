@@ -197,10 +197,12 @@ async def on_message(message):
         await client.send_file(message.channel, 'matout.png')
     if message.content.startswith('&stages'):
         now = datetime.datetime.now()
-        rotations = ['0','2','4','6','8','10'
-                     '12','14','16','18','20'
-                     '22','24']
-        progress = '⚫'*int(str(now.minute)[0])+'⚪'*(12-int(str(now.minute)[0]))
+### progress bar
+        if now.hour % 2 != 0:
+            progress = ('⚫'*int(str(now.minute)[0]))+(('⚪'*(12-int(str(now.minute)[0]))))
+        else:
+            print(('⚫'*6)+('⚫'*int(str(now.minute)[0]))+(('⚪'*(6-int(str(now.minute)[0])))))
+
         splatoonget()
         splatoonfile = open("stages.txt","r")
         stages = splatoonfile.read()
