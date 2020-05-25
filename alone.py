@@ -2,12 +2,13 @@ from PIL import Image, ImageDraw, ImageFont
 import datetime
 import calendar
 
+
 def alone():
     W=160
     now = datetime.datetime.now()
-    image = Image.open('alone blank.png')
+    aloneImage = Image.open('images/alone blank.png')
     font_type = ImageFont.truetype("segoeprb.ttf", 20)
-    draw = ImageDraw.Draw(image)
+    draw = ImageDraw.Draw(aloneImage)
     (dwidth,dheight) = font_type.getsize(str(now.strftime('%A')))
     (mwidth,mheight) = font_type.getsize("morning?")
     (awidth,mheight) = font_type.getsize("afternoon?")
@@ -21,5 +22,5 @@ def alone():
     if now.hour >=18 and now.hour < 24:
         draw.text(xy=((W-nwidth)/2+315,120),text="night?",font=font_type)
     #image.show()
-    image.save("aloneout.png")
+    aloneImage.save("aloneout.png")
 alone()

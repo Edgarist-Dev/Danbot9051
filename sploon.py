@@ -13,6 +13,7 @@ def splatoonget():
     response = urllib.request.urlopen(request)
     data = response.read()
 
+###don't know why this is here
     stages = ["The Reef","Musselforge Fitness","Starfish Mainstage",
     "Humpback Pump Track","Inkblot Art Academy","Moray Towers","Port Mackerel",
     "Sturgeon Shipyard","Shifty Station","Manta Maria","Kelp Dome",
@@ -23,12 +24,15 @@ def splatoonget():
 
     modes = ["Rainmaker", "Splat Zones", "Tower Control", "Clam Blitz"]
 
+###DO NOT TOUCH
     current = str(data).split(",")
+###DO NOT TOUCH
 
     currentmode = ['']
     currentmaps = ['']
     currentleague = ['']
 
+###this part finds the relevant parts to be used later
     for i in current:
         if i[:7] == '"gachi"':
             for x in range(9):
@@ -67,18 +71,19 @@ def splatoonget():
 ### this part finds what the current mode is for ranked and league
     for i in currentmode:
         if i[:7] == '"name":':
-            rankedmode = i[8:len(i)-2]
+            print(i)
+            rankedmode = i[8:len(i)-1]
             break
         elif i[:8] == '"gachi":':
             for i in currentmode:
                 if i[:7] == '"name":':
-                    rankedmode = i[8:len(i)-2]
+                    rankedmode = i[8:len(i)-1]
                     break
             break
 
     for i in currentleague:
         if i[:7] == '"name":':
-            leaguemode = i[8:len(i)-2]
+            leaguemode = i[8:len(i)-1]
             break
         elif i[:9] == '"league":':
             leaguemode = current[current.index(i)+5][8:len(current[current.index(i)+5])-1]
@@ -97,15 +102,15 @@ def splatoonget():
 
 
 ####this part makes the image
-    image1 = Image.open('stages/'+currentmaps[3][9:len(currentmaps[3])-1]+'.png')
-    image2 = Image.open('stages/'+currentmaps[4][1:len(currentmaps[4])-2]+'.png')
-    image3 = Image.open('stages/Regular.png')
-    image4 = Image.open('stages/Ranked.png')
-    image5 = Image.open('stages/League.png')
-    image6 = Image.open('stages/'+currentmode[3][9:len(currentmode[3])-1]+'.png')
-    image7 = Image.open('stages/'+currentmode[4][1:len(currentmode[4])-2]+'.png')
-    image8 = Image.open('stages/'+currentleague[3][9:len(currentleague[3])-1]+'.png')
-    image9 = Image.open('stages/'+currentleague[4][1:len(currentleague[4])-2]+'.png')
+    image1 = Image.open('images/stages/'+currentmaps[3][9:len(currentmaps[3])-1]+'.png')
+    image2 = Image.open('images/stages/'+currentmaps[4][1:len(currentmaps[4])-2]+'.png')
+    image3 = Image.open('images/stages/Regular.png')
+    image4 = Image.open('images/stages/Ranked.png')
+    image5 = Image.open('images/stages/League.png')
+    image6 = Image.open('images/stages/'+currentmode[3][9:len(currentmode[3])-1]+'.png')
+    image7 = Image.open('images/stages/'+currentmode[4][1:len(currentmode[4])-2]+'.png')
+    image8 = Image.open('images/stages/'+currentleague[3][9:len(currentleague[3])-1]+'.png')
+    image9 = Image.open('images/stages/'+currentleague[4][1:len(currentleague[4])-2]+'.png')
     (width1, height1) = image1.size
     (width2, height2) = image2.size
 
@@ -127,20 +132,20 @@ def splatoonget():
     result.paste(im=image9, box=(width1, 0))
     result.save('leagueimg.png')
 
-    stack = Image.open('regularimg.png')
+    stack = Image.open('images/regularimg.png')
     stack.paste(image3, (320, 0), mask=image3)
     stack.save('regularstage.png')
-    stack = Image.open('rankedimg.png')
+    stack = Image.open('images/rankedimg.png')
     stack.paste(image4, (320, 0), mask=image4)
     stack.save('rankedstage.png')
-    stack = Image.open('leagueimg.png')
+    stack = Image.open('images/leagueimg.png')
     stack.paste(image5, (320, 0), mask=image5)
     stack.save('leaguestage.png')
 
     triplestack = Image.new('RGB', (result_width, 1080))
-    triplestack.paste(im=Image.open('regularstage.png'), box=(0,0))
-    triplestack.paste(im=Image.open('rankedstage.png'), box=(0,360))
-    triplestack.paste(im=Image.open('leaguestage.png'), box=(0,720))
+    triplestack.paste(im=Image.open('images/regularstage.png'), box=(0,0))
+    triplestack.paste(im=Image.open('images/rankedstage.png'), box=(0,360))
+    triplestack.paste(im=Image.open('images/leaguestage.png'), box=(0,720))
     triplestack = triplestack.resize((320,270),Image.ANTIALIAS)
     triplestack.save('triplestack.png')
     
