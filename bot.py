@@ -79,6 +79,11 @@ async def on_message(message):
             message)
         await message.channel.send(msg)
 
+    if message.content == (prefix + 'loos'):
+        msg = "{0.author.mention} have you seen what's going on in the world right now.\nYour saying you get kick out of saying something racist is disgusting.\nIt doesn't matter why you are saying something racist, it's the fact you a racist is disgusting. Keep this up you will loos everyone is your life. You will loos everything. You will feel the pain of all of those who you brought pain to.".format(
+            message)
+        await message.channel.send(msg)
+
     if message.content == (prefix + 'pasta'):
         msg = "chelsea - George's letter \nlollie - Cotton's sperg \n".format(
             message)
@@ -97,6 +102,13 @@ async def on_message(message):
             message)
         await message.channel.send(msg)
 
+    if message.content.upper().startswith('I THINK'):
+        randy = random.randint(1, 2)
+        if randy == 1:
+            msg = 'WHO CARES WHAT YOU THINK, YOU ARE NOT MY MOTHER!'.format(message)
+        if randy == 2:
+            msg = 'WHO CARES WHAT YOU THINK, YOU ARE NOT MY FATHER!'.format(message)
+        await message.channel.send(msg)
     if message.content.startswith('hey dan'):
         msg = '{0.author.mention} yeah?'.format(message)
         await message.channel.send(msg)
@@ -171,6 +183,20 @@ async def on_message(message):
             matImage.save("matout.png")
         mat(str(message.content[4:]))
         await message.channel.send(file=discord.File('matout.png'))
+    if message.content.startswith('&roggerism'):
+        roggerPrefix = ['Le', 'Slicka\'', 'Mister', 'Uh oh... ']
+        consSyls = ['gr','bl','p','kl','k','gl','sh','shl','b','kr','j','w','dr','d','pl','n','g', 'shn']
+        vowSyls  = ['oo','i','ee','er','or','öo','ü', 'u','o']
+        endSyls  = ['ble','bert','ple','pert','turd','p','b','py','bit','bé','be', 'zz', 'pers', 'ber']
+        # print(('Maximum possibilities'), len(consSyls) * len(vowSyls) * len(endSyls) * len(roggerPrefix))
+        numChoice = random.randint(0, 4)
+        if numChoice == 4:
+            prefixChosen = random.choice(roggerPrefix)
+        else:
+            prefixChosen = ''
+        msg = (prefixChosen+ ' ' + random.choice(consSyls) + random.choice(vowSyls) + random.choice(endSyls)).format(message)
+        # print(msg)
+        await message.channel.send(msg)
     if message.content.startswith('&stages'):
         now = datetime.datetime.now()
 # progress bar
